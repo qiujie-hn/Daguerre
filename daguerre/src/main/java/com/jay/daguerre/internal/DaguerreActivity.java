@@ -2,11 +2,8 @@ package com.jay.daguerre.internal;
 
 import android.Manifest;
 import android.app.LoaderManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -25,7 +22,6 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
@@ -57,10 +53,9 @@ public class DaguerreActivity extends AppCompatActivity
         CompoundButton.OnCheckedChangeListener,
         ResourceItemAdapter.OnItemClickListener,
         AlbumsItemAdapter.OnItemClickListener {
-    private static final String TAG = "Daguerre";
     private static final int REQUEST_READ_EXTERNAL_STORAGE_PERMISSION = 123;
-    private static final int REQUEST_CAMERA_IMAGE_PERMISSION = 124;
-    private static final int REQUEST_CAMERA_VIDEO_PERMISSION = 125;
+    private static final int REQUEST_CAMERA_IMAGE = 124;
+    private static final int REQUEST_CAMERA_VIDEO = 125;
     private static final int REQUEST_CAMERA_APP = 126;
 
     private static final String _ID = MediaStore.Files.FileColumns._ID;
@@ -90,14 +85,6 @@ public class DaguerreActivity extends AppCompatActivity
     private RecyclerView mNavRecyclerView;
     private AlbumsItemAdapter mAlbumsItemAdapter;
     private DrawerLayout mDrawerLayout;
-
-
-//    BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            System.out.println("context = [" + context + "], intent = [" + intent + "]");
-//        }
-//    };
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -157,46 +144,29 @@ public class DaguerreActivity extends AppCompatActivity
         mAlbumsItemAdapter.setOnItemClickListener(this);
         mNavRecyclerView.setAdapter(mAlbumsItemAdapter);
 
-        // 检测读取权限
+        // 检测读取、写入权限
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED) {
             startLoader();
-        } else if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        } else if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             // empty code
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_READ_EXTERNAL_STORAGE_PERMISSION);
         }
     }
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        IntentFilter filter = new IntentFilter(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//        registerReceiver(mBroadcastReceiver, filter);
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        unregisterReceiver(mBroadcastReceiver);
-//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         // 权限授权结果
         if (requestCode == REQUEST_READ_EXTERNAL_STORAGE_PERMISSION &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            startLoader();
-        } else if (requestCode == REQUEST_CAMERA_IMAGE_PERMISSION &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED &&
                 grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-            launchCameraApp(REQUEST_CAMERA_IMAGE_PERMISSION);
-        } else if (requestCode == REQUEST_CAMERA_VIDEO_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-                grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-            launchCameraApp(REQUEST_CAMERA_VIDEO_PERMISSION);
-
+            startLoader();
         }
     }
 
@@ -244,7 +214,6 @@ public class DaguerreActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-//        printlnCursor(data);
         mResources.clear();
         mAlbums.clear();
 
@@ -310,23 +279,6 @@ public class DaguerreActivity extends AppCompatActivity
         mResources.clear();
         mAdapter.notifyDataSetChanged();
     }
-
-//    private void printlnCursor(Cursor data) {
-//        if (data != null && data.getCount() > 0 && data.moveToFirst()) {
-//            Log.d(TAG, "================================================================");
-//            do {
-//                for (int i = 0; i < data.getColumnCount(); i++) {
-//                    String columnName = data.getColumnName(i);
-//                    String columnValue = data.getString(i);
-//                    Log.d(TAG, columnName + ":" + columnValue);
-//                }
-//                Log.d(TAG, "================================================================");
-//
-//            } while (data.moveToNext());
-//            data.close();
-//        }
-//    }
-
     @Override
     public void onListItemClick(View itemView) {
         int adapterPosition = mRecyclerView.getChildViewHolder(itemView).getAdapterPosition();
@@ -408,38 +360,10 @@ public class DaguerreActivity extends AppCompatActivity
             finish();
             return true;
         } else if (itemId == R.id.menu_camera) {
-            // 检测使用相机权限
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_GRANTED) {
-                launchCameraApp(REQUEST_CAMERA_IMAGE_PERMISSION);
-            } else if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA) ||
-                    ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            } else {
-                // 请求使用相机权限 和 写文件权限
-                ActivityCompat
-                        .requestPermissions(this, new String[]{Manifest.permission.CAMERA,
-                                        Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                REQUEST_CAMERA_IMAGE_PERMISSION);
-            }
+            launchCameraApp(REQUEST_CAMERA_IMAGE);
             return true;
         } else if (itemId == R.id.menu_video) {
-            // 检测使用相机权限
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_GRANTED) {
-                launchCameraApp(REQUEST_CAMERA_VIDEO_PERMISSION);
-            } else if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA) ||
-                    ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            } else {
-                // 请求使用相机权限 和 写文件权限
-                ActivityCompat
-                        .requestPermissions(this, new String[]{Manifest.permission.CAMERA,
-                                        Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                REQUEST_CAMERA_VIDEO_PERMISSION);
-            }
+            launchCameraApp(REQUEST_CAMERA_VIDEO);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -450,14 +374,14 @@ public class DaguerreActivity extends AppCompatActivity
      */
     private void launchCameraApp(int useType) {
         Intent cameraIntent = new Intent();
-        if (useType == REQUEST_CAMERA_VIDEO_PERMISSION) {
+        if (useType == REQUEST_CAMERA_VIDEO) {
             cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
             cameraIntent.setAction(MediaStore.ACTION_VIDEO_CAPTURE);
         } else {
             cameraIntent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
         }
         if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-            if (useType == REQUEST_CAMERA_VIDEO_PERMISSION) {
+            if (useType == REQUEST_CAMERA_VIDEO) {
                 mCameraOutPutFile = createVideoFile();
             } else {
                 mCameraOutPutFile = createPhotoFile();
@@ -470,7 +394,7 @@ public class DaguerreActivity extends AppCompatActivity
             } else {
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCameraOutPutFile));
             }
-            if (useType == REQUEST_CAMERA_VIDEO_PERMISSION) {
+            if (useType == REQUEST_CAMERA_VIDEO) {
                 cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
             }
             startActivityForResult(cameraIntent, REQUEST_CAMERA_APP);
