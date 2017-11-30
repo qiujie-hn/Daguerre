@@ -14,25 +14,25 @@
 ### Step 1. Add the JitPack repository to your build file
 Add it in your root build.gradle at the end of repositories:
 ```groovy
-	allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
 	}
+}
 ```
 
 ### Step 2. Add the dependency
 ```groovy
-	dependencies {
-	        implementation 'com.github.qiujayen:Daguerre:1.0.0'
-	}
+dependencies {
+	implementation 'com.github.qiujayen:Daguerre:1.0.0'
+}
 ```
 ### This library dependencies
 ```groovy
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-    implementation 'com.android.support:recyclerview-v7:27.0.2'
-    implementation 'com.github.chrisbanes:PhotoView:2.1.3'
+implementation 'com.android.support:appcompat-v7:27.0.2'
+implementation 'com.android.support:recyclerview-v7:27.0.2'
+implementation 'com.github.chrisbanes:PhotoView:2.1.3'
 ```
 
 ## How to use Daguerre?
