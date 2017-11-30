@@ -9,18 +9,29 @@
     tools:openDrawer="start">
 
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <android.support.v4.widget.ContentLoadingProgressBar
+            android:id="@+id/content_progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:clipToPadding="false"
         android:id="@+id/nav_recycler_view"
-        android:background="?android:windowBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"/>
+        android:layout_gravity="start"
+        android:background="?android:windowBackground"
+        android:clipToPadding="false"/>
 
 </android.support.v4.widget.DrawerLayout>

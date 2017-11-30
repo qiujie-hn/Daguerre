@@ -9,6 +9,7 @@
     <style name="Daguerre.Activity.Theme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">#FA8CBE</item>
         <item name="colorPrimaryDark">#FA8CBE</item>
+        <item name="colorAccent">#FA8CBE</item>
         <item name="actionModeBackground">?colorPrimary</item>
         <item name="daguerreCheckButtonColor">@android:color/white</item>
         <item name="daguerreActionDrawableColor">@android:color/white</item>

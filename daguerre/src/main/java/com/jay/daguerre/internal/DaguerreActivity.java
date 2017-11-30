@@ -19,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -87,6 +88,7 @@ public class DaguerreActivity extends AppCompatActivity
     private RecyclerView mNavRecyclerView;
     private AlbumsItemAdapter mAlbumsItemAdapter;
     private DrawerLayout mDrawerLayout;
+    private ContentLoadingProgressBar mContentLoadingProgressBar;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -114,6 +116,8 @@ public class DaguerreActivity extends AppCompatActivity
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        mContentLoadingProgressBar = findViewById(R.id.content_progress_bar);
+
         if (savedInstanceState != null) {
             // 恢复数据
             String take_photo_file = savedInstanceState.getString("take_photo_file", null);
@@ -121,8 +125,6 @@ public class DaguerreActivity extends AppCompatActivity
                 mCameraOutPutFile = new File(take_photo_file);
             }
         }
-
-
 
         max = intent.getIntExtra(Daguerre.INTENT_EXTRA_KEY_MAX, 1);
 
@@ -163,7 +165,7 @@ public class DaguerreActivity extends AppCompatActivity
                 || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             // empty code
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_READ_EXTERNAL_STORAGE_PERMISSION);
         }
     }
@@ -266,6 +268,7 @@ public class DaguerreActivity extends AppCompatActivity
             mAlbumsItemAdapter.setData(mAlbums);
             mAlbumsItemAdapter.notifyDataSetChanged();
         }
+        mContentLoadingProgressBar.hide();
     }
 
     /**
@@ -288,6 +291,7 @@ public class DaguerreActivity extends AppCompatActivity
         mResources.clear();
         mAdapter.notifyDataSetChanged();
     }
+
     @Override
     public void onListItemClick(View itemView) {
         int adapterPosition = mRecyclerView.getChildViewHolder(itemView).getAdapterPosition();
