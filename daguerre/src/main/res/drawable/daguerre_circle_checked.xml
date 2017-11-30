@@ -1,0 +1,18 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportHeight="24.0"
+        android:viewportWidth="24.0">
+    <!--<path-->
+        <!--android:fillColor="?daguerreCheckButtonColor"-->
+        <!--android:pathData="M12,12m-10,0a10,10 0,1 1,22 0a10,10 0,1 1,-22 0"-->
+        <!--tools:fillColor="#FF000000"/>-->
+    <path
+        android:fillColor="?attr/daguerreCheckButtonColor"
+        android:pathData="M10,12m-8,0a8,8 0,1 1,18 0a8,8 0,1 1,-18 0"
+        tools:fillColor="#FF000000"/>
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M8.5,15.939l-3.127,-3.128l-1.061,1.061l4.189,4.189l9,-9l-1.061,-1.061z"/>
+</vector>

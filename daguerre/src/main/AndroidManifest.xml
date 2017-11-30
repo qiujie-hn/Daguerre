@@ -1,0 +1,27 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.jay.daguerre">
+
+    <application>
+        <activity
+            android:label="相册"
+            android:name=".internal.DaguerreActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Daguerre.Activity.Theme"/>
+
+        <activity
+            android:name=".internal.PreviewResourceActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@style/Daguerre.PreviewPictureActivity.Theme"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.jay.daguerre.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider"/>
+        </provider>
+    </application>
+</manifest>
