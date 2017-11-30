@@ -67,8 +67,9 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 ```
 
 #### Themes attrs
+
 | attr                           | doc                      | default value|
-|---                             |---                       |---|
+|:------------------------------|:------------------------------|:------------------------------:|
 | daguerreCheckButtonColor       | 选择图片 CheckBox 按钮颜色  | white |
 | daguerreActionDrawableColor    | ActionBar 菜单图标颜色     | white |
 | daguerreActionModeDrawableColor| ActionMode 确认按钮图标颜色 | white |
@@ -78,10 +79,10 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 参考`Activity`主题样式设置
 
 ## Thanks
-This library is inspired by [Laevatein](https://github.com/zhihu/Matisse) and uses some of its source code.
+This library is inspired by [Matisse](https://github.com/zhihu/Matisse) and uses some of its source code.
 
 ## License
-Copyright 2017 Zhihu Inc.
+Copyright 2017 QiuJay Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
