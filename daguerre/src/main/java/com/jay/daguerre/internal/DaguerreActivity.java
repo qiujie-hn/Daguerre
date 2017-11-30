@@ -21,12 +21,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -105,6 +107,13 @@ public class DaguerreActivity extends AppCompatActivity
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        Toolbar toolbar = findViewById(android.support.v7.appcompat.R.id.action_bar);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, toolbar, 0, 0);
+        mDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
         if (savedInstanceState != null) {
             // 恢复数据
             String take_photo_file = savedInstanceState.getString("take_photo_file", null);
@@ -113,7 +122,7 @@ public class DaguerreActivity extends AppCompatActivity
             }
         }
 
-        mDrawerLayout = findViewById(R.id.drawer_layout);
+
 
         max = intent.getIntExtra(Daguerre.INTENT_EXTRA_KEY_MAX, 1);
 
