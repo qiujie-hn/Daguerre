@@ -1,3 +1,5 @@
+[![](https://jitpack.io/v/qiujayen/Daguerre.svg)](https://jitpack.io/#qiujayen/Daguerre)
+
 # Daguerre
 一个`Android`本地图片和视频的选择器
 - 可以在Activity或Fragment中使用
@@ -28,14 +30,14 @@ allprojects {
 ### Step 2. Add the dependency
 ```groovy
 dependencies {
-	implementation 'com.github.qiujayen:Daguerre:1.0.2'
+	implementation 'com.github.qiujayen:Daguerre:last-version'
 }
 ```
 ### This library dependencies
 ```groovy
-implementation 'com.android.support:appcompat-v7:27.0.2'
-implementation 'com.android.support:recyclerview-v7:27.0.2'
-implementation 'com.github.chrisbanes:PhotoView:2.1.3'
+implementation 'com.android.support:appcompat-v7:version code'
+implementation 'com.android.support:recyclerview-v7:version code'
+implementation 'com.github.chrisbanes:PhotoView:version code'
 ```
 
 ## How to use Daguerre?
