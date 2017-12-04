@@ -13,7 +13,9 @@
 |![](images/screenshot_select.png) | ![](images/screenshot_select_album.png) | ![](images/screenshot_preview.png)|
 
 ## Download Demo Apk
-![](images/apkqrcode.png)
+|[apk](apk/sample-debug.apk)|
+|:-:|
+|![](images/apkqrcode.png)|
 
 ## How to
 ### Step 1. Add the JitPack repository to your build file
