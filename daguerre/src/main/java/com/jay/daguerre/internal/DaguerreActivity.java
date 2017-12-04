@@ -229,7 +229,7 @@ public class DaguerreActivity extends AppCompatActivity
         mAlbums.clear();
 
         Media.Album allAlbum = new Media.Album();
-        allAlbum.name = "全部";
+        allAlbum.name = getString(R.string.daguerre_all);
 
         if (data != null && data.getCount() > 0 && data.moveToFirst()) {
             do {
@@ -330,7 +330,7 @@ public class DaguerreActivity extends AppCompatActivity
         if (isChecked) {
             if (mSelectResources.size() == max) {
                 buttonView.setChecked(false);
-                Toast.makeText(this, "最多只能选择" + max + "张", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.daguerre_max_select, max), Toast.LENGTH_SHORT).show();
                 return;
             }
             if (!mSelectResources.contains(data)) {
@@ -346,7 +346,7 @@ public class DaguerreActivity extends AppCompatActivity
             if (mSelectResources.isEmpty()) {
                 mActionModel.finish();
             } else {
-                mActionModel.setTitle(mSelectResources.size() + "");
+                mActionModel.setTitle(getString(R.string.daguerre_select, mSelectResources.size()));
             }
         }
     }
@@ -401,7 +401,7 @@ public class DaguerreActivity extends AppCompatActivity
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 // 适配 7.0+ 系统
-                Uri uri = FileProvider.getUriForFile(this, getString(R.string.file_provider_authorities), mCameraOutPutFile);
+                Uri uri = FileProvider.getUriForFile(this, getString(R.string.daguerre_file_provider_authorities), mCameraOutPutFile);
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 cameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             } else {
@@ -412,7 +412,7 @@ public class DaguerreActivity extends AppCompatActivity
             }
             startActivityForResult(cameraIntent, REQUEST_CAMERA_APP);
         } else {
-            Toast.makeText(this, "找不到相机应用", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.daguerre_not_found_camera_app, Toast.LENGTH_SHORT).show();
         }
     }
 

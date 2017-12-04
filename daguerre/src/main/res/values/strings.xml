@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="file_provider_authorities">com.jay.daguerre.fileprovider</string>
+    <string name="daguerre_file_provider_authorities">com.jay.daguerre.fileprovider</string>
+    <string name="daguerre_all">全部</string>
+    <string name="daguerre_not_found_camera_app">找不到相机应用</string>
+    <string name="daguerre_max_select">最多选择%1$d项</string>
+    <string name="daguerre_select">已选择%1$d项</string>
 </resources>
