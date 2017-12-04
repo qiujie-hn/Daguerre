@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <attr name="daguerreCheckButtonColor" format="color"/>
     <attr name="daguerreActionDrawableColor" format="color"/>
@@ -16,6 +16,7 @@
         <item name="daguerreActionModeDrawableColor">@android:color/white</item>
         <item name="daguerreBadgeColor">@android:color/white</item>
         <item name="checkboxStyle">@style/Daguerre.Activity.CheckboxStyle</item>
+        <item name="actionModeCloseDrawable" tools:ignore="PrivateResource">@drawable/abc_ic_clear_material</item>
     </style>
 
     <style name="Daguerre.Activity.CheckboxStyle" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
