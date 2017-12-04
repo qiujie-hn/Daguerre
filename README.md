@@ -81,6 +81,9 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 #### Themes Style
 参考`Activity`主题样式设置
 
+#### More
+Find more details about Daguerre in [wiki](https://github.com/qiujayen/Daguerre/wiki).
+
 ## Thanks
 This library is inspired by [Matisse](https://github.com/zhihu/Matisse) and uses some of its source code.
 
