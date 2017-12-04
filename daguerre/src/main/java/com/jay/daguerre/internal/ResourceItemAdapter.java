@@ -53,22 +53,6 @@ class ResourceItemAdapter extends BaseRecyclerAdapter<Media.Resource, ResourceIt
         } else {
             holder.mImageFlagIcon.setVisibility(View.GONE);
         }
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            holder.mCheckBox.setButtonDrawable(R.drawable.daguerre_btn_check_material);
-//        } else {
-//
-//            StateListDrawable stateListDrawable = new StateListDrawable();
-//
-//            VectorDrawableCompat checkedDrawable = VectorDrawableCompat.create(mContext.getResources(), R.drawable.daguerre_circle_checked, mContext.getTheme());
-//            VectorDrawableCompat uncheckedDrawable = VectorDrawableCompat.create(mContext.getResources(), R.drawable.daguerre_circle_unchecked, mContext.getTheme());
-//
-//            stateListDrawable.addState(new int[]{android.R.attr.state_checked}, checkedDrawable);
-//            stateListDrawable.addState(new int[]{}, uncheckedDrawable);
-//
-//            int inset = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, mContext.getResources().getDisplayMetrics()));
-//            InsetDrawable insetDrawable = new InsetDrawable(stateListDrawable, inset);
-//            holder.mCheckBox.setButtonDrawable(insetDrawable);
-//        }
         holder.mCheckBox.setChecked(getItem(position).isChecked);
         holder.mCheckBox.setOnCheckedChangeListener(mOnCheckedChangeListener);
     }

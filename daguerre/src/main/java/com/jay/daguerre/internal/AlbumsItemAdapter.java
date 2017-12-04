@@ -32,7 +32,7 @@ class AlbumsItemAdapter extends BaseRecyclerAdapter<Media.Album, AlbumsItemAdapt
     public void onBindViewHolder(ViewHolder holder, int position) {
         Media.Album item = getItem(position);
         holder.mTextName.setText(item.name);
-        holder.mTextCount.setText(item.resourceCount + "张");
+        holder.mTextCount.setText(mContext.getString(R.string.daguerre_albums_member_count, item.resourceCount));
         ImageLoader imageLoader = ConfigParams.getInstance().getImageLoader();
         if (imageLoader != null) {
             imageLoader.loadAlbumImage(mContext, holder.mImage, item.cover.data);
