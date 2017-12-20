@@ -328,18 +328,20 @@ public class DaguerreActivity extends AppCompatActivity
         String data = resource.data;
         resource.isChecked = isChecked;
         if (isChecked) {
-            if (mSelectResources.size() == max) {
-                buttonView.setChecked(false);
-                Toast.makeText(this, getString(R.string.daguerre_max_select, max), Toast.LENGTH_SHORT).show();
-                return;
-            }
             if (!mSelectResources.contains(data)) {
+                if (mSelectResources.size() == max) {
+                    buttonView.setChecked(false);
+                    resource.isChecked = false;
+                    Toast.makeText(this, getString(R.string.daguerre_max_select, max), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 mSelectResources.add(data);
             }
             if (mActionModel == null) {
                 startSupportActionMode(this);
             }
         } else {
+            if (mSelectResources.contains(data))
             mSelectResources.remove(data);
         }
         if (mActionModel != null) {
