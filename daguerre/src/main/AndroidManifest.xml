@@ -15,13 +15,13 @@
             android:theme="@style/Daguerre.PreviewPictureActivity.Theme"/>
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name=".provider.DaguerreFileProvider"
             android:authorities="com.jay.daguerre.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_provider"/>
+                android:resource="@xml/daguerre_file_provider"/>
         </provider>
     </application>
 </manifest>
