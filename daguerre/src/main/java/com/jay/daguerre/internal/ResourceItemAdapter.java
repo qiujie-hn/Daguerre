@@ -45,7 +45,7 @@ class ResourceItemAdapter extends BaseRecyclerAdapter<Media.Resource, ResourceIt
                 }
             }
         });
-
+        holder.mImageFlagIcon.setVisibility(View.VISIBLE);
         if (item.isGif()) {
             holder.mImageFlagIcon.setImageResource(R.drawable.daguerre_ic_badge_gif);
         } else if (item.isVideo()) {
