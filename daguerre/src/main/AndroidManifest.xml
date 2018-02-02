@@ -3,8 +3,8 @@
 
     <application>
         <activity
-            android:label="相册"
             android:name=".internal.DaguerreActivity"
+            android:label="相册"
             android:screenOrientation="portrait"
             android:theme="@style/Daguerre.Activity.Theme"/>
 
@@ -16,7 +16,7 @@
 
         <provider
             android:name=".provider.DaguerreFileProvider"
-            android:authorities="com.jay.daguerre.fileprovider"
+            android:authorities="${applicationId}.daguerre.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

@@ -342,7 +342,7 @@ public class DaguerreActivity extends AppCompatActivity
             }
         } else {
             if (mSelectResources.contains(data))
-            mSelectResources.remove(data);
+                mSelectResources.remove(data);
         }
         if (mActionModel != null) {
             if (mSelectResources.isEmpty()) {
@@ -403,7 +403,7 @@ public class DaguerreActivity extends AppCompatActivity
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 // 适配 7.0+ 系统
-                Uri uri = FileProvider.getUriForFile(this, getString(R.string.daguerre_file_provider_authorities), mCameraOutPutFile);
+                Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".daguerre.fileprovider", mCameraOutPutFile);
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 cameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             } else {
