@@ -25,7 +25,7 @@ public class PreviewResourceActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         int position = intent.getIntExtra("position", 0);
-        ArrayList<Media.Resource> images = getIntent().getParcelableArrayListExtra("images");
+        ArrayList<Media.Resource> images = Media.getResourceStoreInstance().getResources();
 
         setContentView(R.layout.daguerre_activity_preview_resource);
         Toolbar toolbar = findViewById(R.id.toolbar);

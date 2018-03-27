@@ -1,9 +1,5 @@
 package com.jay.daguerre.internal;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.text.TextUtils;
-
 import com.jay.daguerre.MimeType;
 
 import java.util.ArrayList;
@@ -12,7 +8,7 @@ import java.util.ArrayList;
  * Created by jay on 2017/11/23 下午3:29
  */
 final class Media {
-    static class Resource implements Parcelable {
+    static class Resource{
         String id;
         String data = ""; //file path
         //        long size;
@@ -51,41 +47,6 @@ final class Media {
             return mineType != null && mineType.equals(MimeType.GIF);
         }
 
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(this.id);
-            dest.writeString(this.data);
-            dest.writeString(this.displayName);
-            dest.writeString(this.mineType);
-            dest.writeString(this.bucketDisplayName);
-            dest.writeByte(this.isChecked ? (byte) 1 : (byte) 0);
-        }
-
-        protected Resource(Parcel in) {
-            this.id = in.readString();
-            this.data = in.readString();
-            this.displayName = in.readString();
-            this.mineType = in.readString();
-            this.bucketDisplayName = in.readString();
-            this.isChecked = in.readByte() != 0;
-        }
-
-        public static final Creator<Resource> CREATOR = new Creator<Resource>() {
-            @Override
-            public Resource createFromParcel(Parcel source) {
-                return new Resource(source);
-            }
-
-            @Override
-            public Resource[] newArray(int size) {
-                return new Resource[size];
-            }
-        };
     }
 
     static class Album {
@@ -93,5 +54,23 @@ final class Media {
         Resource cover;
         ArrayList<Resource> resources = new ArrayList<>();
         int resourceCount;
+    }
+
+    static ResourceStore getResourceStoreInstance() {
+        return ResourceStore.instance;
+    }
+
+    static class ResourceStore{
+
+        private ArrayList<Media.Resource> mResources = new ArrayList<>();
+        static ResourceStore instance = new ResourceStore();
+
+        private ResourceStore() {
+
+        }
+
+        ArrayList<Resource> getResources() {
+            return mResources;
+        }
     }
 }

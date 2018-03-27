@@ -73,7 +73,7 @@ public class DaguerreActivity extends AppCompatActivity
             MIME_TYPE, BUCKET_DISPLAY_NAME
     };
 
-    private ArrayList<Media.Resource> mResources = new ArrayList<>();
+    private ArrayList<Media.Resource> mResources = Media.getResourceStoreInstance().getResources();
     private ArrayList<Media.Album> mAlbums = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private ResourceItemAdapter mAdapter;
@@ -297,7 +297,6 @@ public class DaguerreActivity extends AppCompatActivity
         int adapterPosition = mRecyclerView.getChildViewHolder(itemView).getAdapterPosition();
         Intent intent = new Intent(this, PreviewResourceActivity.class);
         intent.putExtra("position", adapterPosition);
-        intent.putExtra("images", mResources);
 
         ActivityOptionsCompat options = ActivityOptionsCompat
                 .makeSceneTransitionAnimation(this, itemView.findViewById(R.id.image), "element");
